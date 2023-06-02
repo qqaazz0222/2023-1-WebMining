@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import time
 
 keywords = ['GPT 3', 'GPT 4', 'ChatGPT']
-lastPageNo = 1
+lastPageNo = 10
 result = []
 
 for keyword in keywords:
@@ -15,17 +15,22 @@ for keyword in keywords:
         print(f'============== Keyword : {keyword} / 페이지 : {pageNo} ==============')
         url = f"https://scholar.google.co.kr/scholar?start={articleNo}&q={keyword}&hl=ko&lr=lang_ko"
         res = rq.get(url)
-        html = res.content.decode("utf-8")
-        print(html)
-        soup = BeautifulSoup(html, 'lxml')
-        papers = soup.select('.gs_rt a')
-        for paper in papers:
-            print(paper)
-            print(paper.getText())
-            temp.append(paper.getText())
-        time.sleep(10)
-    result.append(temp)
+        try:
+            html = res.content.decode("euc-kr")
+            soup = BeautifulSoup(html, 'lxml')
+            papers = soup.select('.gs_rt a')
+            for paper in papers:
+                title = f"{paper.text}"
+                print(title)
+                # temp.append(title)
+                result.append(title)
+        except:
+            print("error!")
+            html = res.content.decode("utf-8")
+            print(html)
+        time.sleep(5)
+    # result.append(temp)
 
-with open('./result.json', 'w', encoding='euc-kr') as outfile:
-    json.dump(result, outfile)
+with open('./CrawlingRes.json', 'w', encoding='utf-8') as outfile:
+    json.dump(result, outfile, ensure_ascii=False)
 
