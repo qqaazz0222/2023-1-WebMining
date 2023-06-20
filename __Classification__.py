@@ -1,4 +1,5 @@
-  [
+# 라벨링 Classification Test Data
+classification = [
     "P",
     "P",
     "J",
@@ -85,5 +86,5 @@
     "J",
     "M",
     "p",
-    "J"
-  ]
+    "J",
+]

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# 형태소 분석을 통한 명사 추출 및 빈도수 분석
 
 from konlpy.tag import Kkma, Komoran, Okt, Mecab
 
